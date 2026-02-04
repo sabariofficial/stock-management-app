@@ -7,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrl: './main-layout.css',
 })
 export class MainLayout {
+    isSidebarOpen = false;
+
+  toggleSidebar() {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
 
 }

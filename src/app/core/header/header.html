@@ -1,0 +1,22 @@
+<nav class="navbar navbar-light bg-light px-3 border-bottom">
+  <div class="d-flex align-items-center">
+
+    <!-- Sidebar toggle (mobile) -->
+    <button
+      class="btn btn-outline-secondary d-md-none me-2"
+      (click)="toggleSidebar.emit()"
+    >
+      ☰
+    </button>
+
+    <!-- App Logo -->
+    <!-- <img src="assets/logo.png" alt="Logo" height="30" class="me-2" /> -->
+
+    <!-- Page Title -->
+    <h5 class="mb-0">{{ pageTitle }}</h5>
+  </div>
+
+  <button class="btn btn-outline-danger btn-sm">
+    Logout
+  </button>
+</nav>

@@ -1,8 +1,22 @@
-<div class="container">
-    <div class="col-3">
-        <app-side-nav></app-side-nav>
+<div class="container-fluid">
+  <div class="row min-vh-100">
+
+    <!-- Sidebar -->
+    <div
+      class="col-12 col-md-3 col-lg-2 p-0 sidebar-wrapper"
+      [class.show]="isSidebarOpen"
+    >
+      <app-side-nav (closeSidebar)="isSidebarOpen = false"></app-side-nav>
     </div>
-    <div class="col-9">
+
+    <!-- Main Content -->
+    <div class="col-12 col-md-9 col-lg-10 p-0 main-wrapper">
+      <app-header (toggleSidebar)="toggleSidebar()"></app-header>
+
+      <main class="p-3">
         <router-outlet></router-outlet>
+      </main>
     </div>
+
+  </div>
 </div>

@@ -1,1 +1,17 @@
-<p>side-nav works!</p>
+<nav class="sidebar d-flex flex-column">
+  <div class="sidebar-header text-center py-3">
+    <h5 class="mb-0">Stock App</h5>
+  </div>
+
+  <ul class="nav flex-column sidebar-menu">
+    <li class="nav-item" *ngFor="let menu of menus">
+      <a
+        class="nav-link"
+        routerLinkActive="active"
+        (click)="routes(menu.route)"
+      >
+        {{ menu.label }}
+      </a>
+    </li>
+  </ul>
+</nav>

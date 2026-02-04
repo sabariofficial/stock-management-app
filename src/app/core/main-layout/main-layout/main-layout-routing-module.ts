@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainLayout } from '../main-layout';
+import { Dashboard } from '../../dashboard/dashboard';
 
 const routes: Routes = [
   {
@@ -9,9 +10,7 @@ const routes: Routes = [
     children: [
       {
         path: 'dashboard',
-        loadChildren: () =>
-          import('../../dashboard/dashboard/dashboard-module')
-            .then(m => m.DashboardModule)
+        component:Dashboard
       },
       {
         path: 'products',
@@ -26,13 +25,13 @@ const routes: Routes = [
             .then(m => m.CustomerModule)
       },
       {
-        path: 'stocks-manage',
+        path: 'stocks',
         loadChildren: () =>
           import('../../stock-management/stocks/stocks-module')
             .then(m => m.StocksModule)
       },
       {
-        path: 'zinc-details',
+        path: 'zinc',
         loadChildren: () =>
           import('../../zinc-details/zinc-details/zinc-details-module')
             .then(m => m.ZincDetailsModule)
