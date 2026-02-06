@@ -10,7 +10,7 @@ import { filter } from 'rxjs';
 })
 export class Header {
  @Output() toggleSidebar = new EventEmitter<void>();
-  pageTitle = 'Dashboard';
+  pageTitle = 'Inventory Management';
 
   constructor(private router: Router) {
     // this.router.events
@@ -24,5 +24,10 @@ export class Header {
   formatTitle(route: string): string {
     if (!route) return 'Dashboard';
     return route.replace('-', ' ').toUpperCase();
+  }
+
+  isLogout() {
+    localStorage.removeItem('user')
+    this.router.navigate(['auth/login'])
   }
 }

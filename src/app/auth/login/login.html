@@ -1,1 +1,31 @@
-<p>login works!</p>
+<nav class="navbar navbar-light bg-light py-3 border-bottom w-100">
+  <div class="d-flex justify-content-center px-2 align-items-center">
+    <h5 class="mb-0">{{ pageTitle }}</h5>
+  </div>
+</nav>
+
+<div class="container mt-5">
+    @if (loginError) {
+        <div class="alert alert-danger mb-2" role="alert">
+            {{loginError}}
+        </div>
+    }
+    <div class="row">
+        <div class="col-12 d-flex justify-content-center align-items-center">
+            <div class="card p-5">
+                <h2>Login</h2>
+                <form [formGroup]="loginForm" class="mt-2">
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Enter your username or email...</mat-label>
+                        <input formControlName="email" matInput placeholder="Enter your username or email..." (change)="getOnChangeLoginCredential($event,'email')">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Password</mat-label>
+                        <input formControlName="password" matInput placeholder="Enter your password..." (change)="getOnChangeLoginCredential($event,'password')">
+                    </mat-form-field>
+                </form>
+                <button class="btn btn-danger" (click)="onSubmit()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,6 @@
 /* Sidebar */
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
 .sidebar {
   background-color: #1f2937;
   color: #fff;

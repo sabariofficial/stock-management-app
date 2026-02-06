@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { authGuard } from './auth/auth-guard';
+import { Login } from './auth/login/login';
 
 const routes: Routes = [
   {
@@ -12,8 +13,12 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'auth/login',
     pathMatch: 'full'
+  },
+  {
+    path: "auth/login",
+    component:Login
   }
 ];
 

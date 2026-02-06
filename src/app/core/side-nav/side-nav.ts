@@ -26,4 +26,8 @@ constructor(private route:Router){}
    this.route.navigate([`home${routerLink}`])
   this.closeSidebar.emit();
   }
+
+  isToggleClose() {
+   this.closeSidebar.emit();
+  }
 }

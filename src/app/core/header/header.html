@@ -1,5 +1,5 @@
-<nav class="navbar navbar-light bg-light px-3 border-bottom">
-  <div class="d-flex align-items-center">
+<nav class="navbar navbar-light bg-light py-3 border-bottom w-100">
+  <div class="d-flex justify-content-between px-2 align-items-center">
 
     <!-- Sidebar toggle (mobile) -->
     <button
@@ -14,9 +14,7 @@
 
     <!-- Page Title -->
     <h5 class="mb-0">{{ pageTitle }}</h5>
+    <mat-icon (click)="isLogout()">logout</mat-icon>
   </div>
 
-  <button class="btn btn-outline-danger btn-sm">
-    Logout
-  </button>
 </nav>
