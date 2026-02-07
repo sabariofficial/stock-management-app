@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Common } from '../common';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,6 +7,18 @@ import { Component } from '@angular/core';
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
-export class Dashboard {
+export class Dashboard implements OnInit{
+
+  constructor(private commonService:Common){
+    this.commonService.getProduct().subscribe((data)=>{
+    console.log(data);
+
+    })
+  }
+
+  ngOnInit(): void {
+    
+    
+  }
   
 }

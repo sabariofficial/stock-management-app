@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Common } from '../common';
 
 @Component({
   selector: 'app-side-nav',
@@ -9,7 +10,10 @@ import { Router } from '@angular/router';
 })
 export class SideNav {
 @Output() closeSidebar = new EventEmitter<void>();
-constructor(private route:Router){}
+constructor(
+  private route:Router,
+  private commonService:Common
+){}
 
   menus = [
     { label: 'Dashboard', route: '/dashboard' },
@@ -22,8 +26,9 @@ constructor(private route:Router){}
     { label: 'Settings', route: '/settings' },
   ];
 
-  routes(routerLink:string){
-   this.route.navigate([`home${routerLink}`])
+  routes(menus:any){
+   this.route.navigate([`home${menus.route}`]);
+  this.commonService.setTitle(menus.label);
   this.closeSidebar.emit();
   }
 

@@ -5,7 +5,9 @@ import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { environment } from '../environments/environment';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     MatSnackBarModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
