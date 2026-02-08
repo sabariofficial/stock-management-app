@@ -1,26 +1,41 @@
 import { Injectable, signal } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import firebase from 'firebase/compat/app';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class Common {
-  constructor(private angularFireStore:AngularFirestore){}
+  constructor(
+    private angularFireStore: AngularFirestore
+  ) { }
 
   selectedTitle = signal<string>('Dashboard');
 
   setTitle(name: string) {
     this.selectedTitle.set(name);
   }
-  
-  getProduct(){
-   return this.angularFireStore.collection('products').valueChanges({idField:'id'})
+
+  getAllProducts() {
+    return this.angularFireStore.collection('products_list').valueChanges({ idField: 'id' })
   }
 
-   addStock(stock: any) {
-    return this.angularFireStore.collection('products').add({
-      ...stock,
-      createdAt: new Date()
+  getAllProductSize() {
+    return this.angularFireStore.collection('item_size').valueChanges({ idField: 'id' })
+  }
+
+  getMaterialDetails() {
+    return this.angularFireStore.collection('materials').valueChanges({ idField: 'id' })
+  }
+
+  addMaterial(material: any) {
+    return this.angularFireStore.collection('materials').add({
+      ...material,
+      date: firebase.firestore.Timestamp.fromDate(
+        new Date(material.date)
+      ),
+      createdAt: firebase.firestore.Timestamp.now()
     });
   }
 

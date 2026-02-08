@@ -1,5 +1,10 @@
 import { platformBrowser } from '@angular/platform-browser';
 import { AppModule } from './app/app-module';
+import { ModuleRegistry } from 'ag-grid-community';
+import { AllCommunityModule } from 'ag-grid-community';
+
+ModuleRegistry.registerModules([AllCommunityModule]);
+
 
 platformBrowser().bootstrapModule(AppModule, {
   

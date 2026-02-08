@@ -1,0 +1,65 @@
+<mat-card class="material-card">
+
+  <mat-card-title>Add Material</mat-card-title>
+  <mat-card-subtitle>Enter material purchase details</mat-card-subtitle>
+
+  <form [formGroup]="materialForm">
+
+    <div class="grid">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Item</mat-label>
+        <mat-select formControlName="item">
+          <mat-option *ngFor="let i of products" [value]="i">
+            {{ i }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Item Size</mat-label>
+        <mat-select formControlName="itemSize">
+          <mat-option *ngFor="let s of itemSizes" [value]="s">
+            {{ s }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>KG</mat-label>
+        <input matInput type="number" formControlName="kg">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Price</mat-label>
+        <input matInput type="number" formControlName="price">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="readonly">
+        <mat-label>Total</mat-label>
+        <input matInput formControlName="total" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+
+    <div class="actions">
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        (click)="addMaterial()"
+        [disabled]="materialForm.invalid">
+        Add Material
+      </button>
+    </div>
+
+  </form>
+
+</mat-card>

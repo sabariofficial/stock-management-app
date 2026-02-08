@@ -10,10 +10,6 @@ import { Common } from '../common';
 export class Dashboard implements OnInit{
 
   constructor(private commonService:Common){
-    this.commonService.getProduct().subscribe((data)=>{
-    console.log(data);
-
-    })
   }
 
   ngOnInit(): void {
