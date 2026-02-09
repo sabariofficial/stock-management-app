@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Common } from '../common';
 
 @Component({
@@ -15,14 +14,15 @@ export class Header implements OnInit{
 
   constructor(
     private router: Router,
-    private commonService:Common
+    private commonService: Common
   ) {
-    // this.router.events
-    //   .pipe(filter(event => event instanceof NavigationEnd))
-    //   .subscribe(() => {
-    //     const route = this.router.url.split('/')[1];
-    //     this.pageTitle = this.formatTitle(route);
-    //   });
+    const pageUrl = this.router.url.split('/')[2];
+    // console.log(pageUrl);
+    
+    let pageTitle: any = this.commonService.menus.find((item) => item.route == `/${pageUrl}`)
+    // console.log(pageTitle);
+    
+    this.commonService.setTitle(pageTitle['label'])
   }
 
   ngOnInit(): void {

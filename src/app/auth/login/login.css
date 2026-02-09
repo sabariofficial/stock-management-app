@@ -3,8 +3,44 @@
     display: block;
 }
 
+.login-wrapper{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #1f1f1f, #434343);
+}
+
+.login-card {
+  border-radius: 16px;
+}
+
+mat-form-field {
+  font-size: 14px;
+}
+
+mat-icon {
+  cursor: pointer;
+}
+
+button {
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+
 @media(min-width: 768px){
     .card{
-        width: 500px;
+        width: 400px;
+    }
+
+    .alert{
+        width:400px;
+    }
+}
+
+@media(max-width:768px){
+    .login-wrapper{
+        padding: 2px;
     }
 }

@@ -13,6 +13,18 @@ export class Common {
 
   selectedTitle = signal<string>('Dashboard');
 
+  menus = [
+    { label: 'Dashboard', route: '/dashboard' },
+    { label: 'Stock Management', route: '/stocks' },
+    { label: 'Material Management', route: '/materials' },
+    { label: 'Products', route: '/products' },
+    { label: 'Customers', route: '/customers' },
+    { label: 'Day-by-Day Manufacturing', route: '/daily-manufacture' },
+    { label: 'Zinc', route: '/zinc' },
+    { label: 'Settings', route: '/settings' },
+    { label: 'Material Management', route: '/add-material' },
+  ];
+
   setTitle(name: string) {
     this.selectedTitle.set(name);
   }

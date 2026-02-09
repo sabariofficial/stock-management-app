@@ -1,7 +1,8 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColDef } from 'ag-grid-community';
 import { Common } from '../common';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-materials',
@@ -10,12 +11,14 @@ import { Common } from '../common';
   styleUrl: './materials.css',
 })
 export class Materials {
-
+  isBrowser = false;
   constructor(
     private router: Router,
     private commonService: Common,
-    private cdr:ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
     this.getMaterialDetails();
   }
 

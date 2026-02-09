@@ -9,27 +9,30 @@ import { Common } from '../common';
   styleUrl: './side-nav.css',
 })
 export class SideNav {
-@Output() closeSidebar = new EventEmitter<void>();
-constructor(
-  private route:Router,
-  private commonService:Common
-){}
+  @Output() closeSidebar = new EventEmitter<void>();
+  menus:any[]=[]
+  constructor(
+    private route:Router,
+    private commonService:Common
+  ) { 
+    this.commonService.menus.map((item) => {
+      this.addMenu(item)
+    })
+  }
 
-  menus = [
-    { label: 'Dashboard', route: '/dashboard' },
-    { label: 'Stock Management', route: '/stocks' },
-    { label: 'Material Management', route: '/materials' },
-    { label: 'Products', route: '/products' },
-    { label: 'Customers', route: '/customers' },
-    { label: 'Day-by-Day Manufacturing', route: '/daily-manufacture' },
-    { label: 'Zinc', route: '/zinc' },
-    { label: 'Settings', route: '/settings' },
-  ];
-
+  addMenu(menu: any) {
+    const exists = this.menus.some(m => m.label === menu.label);
+    console.log(exists);
+    
+    if (!exists) {
+      this.menus.push(menu);
+    }
+  }
+  
   routes(menus:any){
-   this.route.navigate([`home${menus.route}`]);
-  this.commonService.setTitle(menus.label);
-  this.closeSidebar.emit();
+    this.route.navigate([`home${menus.route}`]);
+    this.commonService.setTitle(menus.label);
+    this.closeSidebar.emit();
   }
 
   isToggleClose() {

@@ -7,6 +7,7 @@ import {MatInputModule} from '@angular/material/input';
 import { Header } from '../../../core/header/header';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from "@angular/material/icon";
 
 @NgModule({
   declarations: [Login],
@@ -17,7 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatSnackBarModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatIconModule
 ]
 })
 export class LoginModule { }

@@ -37,8 +37,8 @@
 
 /* Mobile view */
 @media (max-width: 768px) {
-  .add-btn {
-    display: none;
+  .page-header {
+    display: block;
   }
 
   .fab {

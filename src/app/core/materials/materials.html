@@ -10,13 +10,15 @@
 
 
 <div class="ag-theme-alpine material-grid">
-  <ag-grid-angular
-  [theme]="'legacy'"
-    [rowData]="rowData"
-    [columnDefs]="columnDefs"
-    [defaultColDef]="defaultColDef"
-    [pagination]="true"
-    [paginationPageSize]="20"
-    [domLayout]="'autoHeight'">
-  </ag-grid-angular>
+   @if(isBrowser){
+      <ag-grid-angular
+      [theme]="'legacy'"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [pagination]="true"
+      [paginationPageSize]="20"
+      [domLayout]="'autoHeight'">
+    </ag-grid-angular>
+   }
 </div>

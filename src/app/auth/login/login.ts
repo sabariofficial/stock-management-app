@@ -13,10 +13,11 @@ import { ActivatedRoute, Route, Router, Routes } from '@angular/router';
 export class Login implements OnInit {
   pageTitle = "Inventory Mangement"
   loginForm!: FormGroup;
-  loginData: any = {}
+  loginData: any = {};
   isMail = ["test@gmail.com" , "guest"];
-  isPassword = "Test@1234"
-  loginError = ""
+  isPassword = "Test@1234";
+  loginError = "";
+  hide: boolean = true;
 
   constructor(
     private snackBarService: Snackbar,
