@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ColDef } from 'ag-grid-community';
 import { Common } from '../common';
 import { isPlatformBrowser } from '@angular/common';
+import { threadId } from 'worker_threads';
 
 @Component({
   selector: 'app-materials',
@@ -68,6 +69,8 @@ export class Materials {
             : '',
           total: data.total
         }));
+        console.log(this.rowData);
+        
       this.cdr.detectChanges();
       }
     })

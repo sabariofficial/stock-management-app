@@ -1,15 +1,11 @@
 import { Injectable, signal } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import firebase from 'firebase/compat/app';
-
+import { Firestore,collection,addDoc,Timestamp, collectionData, doc, updateDoc, deleteDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Common {
-  constructor(
-    private angularFireStore: AngularFirestore
-  ) { }
+  constructor(private firestore: Firestore) { }
 
   selectedTitle = signal<string>('Dashboard');
 
@@ -30,33 +26,38 @@ export class Common {
   }
 
   getAllProducts() {
-    return this.angularFireStore.collection('products_list').valueChanges({ idField: 'id' })
+    const colRef = collection(this.firestore, 'products_list');
+    return collectionData(colRef, { idField: 'id' });
   }
 
   getAllProductSize() {
-    return this.angularFireStore.collection('item_size').valueChanges({ idField: 'id' })
+    const colRef = collection(this.firestore, 'item_size');
+    return collectionData(colRef, { idField: 'id' });
   }
 
   getMaterialDetails() {
-    return this.angularFireStore.collection('materials').valueChanges({ idField: 'id' })
+    const colRef = collection(this.firestore, 'materials');
+    return collectionData(colRef, { idField: 'id' });
   }
 
   addMaterial(material: any) {
-    return this.angularFireStore.collection('materials').add({
+    const colRef = collection(this.firestore, 'materials');
+
+    return addDoc(colRef, {
       ...material,
-      date: firebase.firestore.Timestamp.fromDate(
-        new Date(material.date)
-      ),
-      createdAt: firebase.firestore.Timestamp.now()
+      date: Timestamp.fromDate(new Date(material.date)),
+      createdAt: Timestamp.now()
     });
   }
 
   updateStock(id: string, data: any) {
-    return this.angularFireStore.collection('products').doc(id).update(data);
+    const docRef = doc(this.firestore, `products/${id}`);
+    return updateDoc(docRef, data);
   }
 
   deleteStock(id: string) {
-    return this.angularFireStore.collection('products').doc(id).delete();
+    const docRef = doc(this.firestore, `products/${id}`);
+    return deleteDoc(docRef);
   }
 
 }

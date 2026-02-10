@@ -35,7 +35,7 @@ export class AddMaterial implements OnInit {
 
   ngOnInit(): void {
     this.materialForm = this.fb.group({
-      item: ['', Validators.required],
+      items: ['', Validators.required],
       itemSize: ['', Validators.required],
       kg: [null, [Validators.required, Validators.min(1)]],
       price: [null, [Validators.required, Validators.min(1)]],
