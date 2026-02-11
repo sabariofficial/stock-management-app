@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Common } from '../common';
+import { Snackbar } from '../../service/snackbar';
 
 export interface AddMaterial {
   items: string;
@@ -26,11 +27,11 @@ export class AddMaterial implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private commonService: Common
+    private commonService: Common,
+    private snackbar: Snackbar
   ) {
     this.getProductSize();
     this.getAllProducts();
-
   }
 
   ngOnInit(): void {
@@ -65,9 +66,8 @@ export class AddMaterial implements OnInit {
       if (res.length) {
         const productSize = res[0].productSize;
         this.itemSizes = productSize;
-
+        this.commonService.list_of_sizes = productSize;
       }
-
     })
   }
 
@@ -76,14 +76,21 @@ export class AddMaterial implements OnInit {
       if (res.length) {
         const products = res[0].product_name;
         this.products = products;
+        this.commonService.list_of_items = products;
       }
 
     })
   }
 
-  addMaterial() {
-    const payload = { ...this.materialForm.getRawValue() }
-    const add = this.commonService.addMaterial(payload);
+  async addMaterial() {
+    try {
+      const payload = { ...this.materialForm.getRawValue() }
+      await this.commonService.addMaterial(payload);
+      this.snackbar.openSnackBar('Material added successfully!')
+      this.materialForm.reset()
+    } catch (error) {
+      this.snackbar.openSnackBar('error')
+    }
   }
 
 }

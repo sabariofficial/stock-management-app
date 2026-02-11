@@ -3,22 +3,24 @@
 <div class="page-header">
   <h2>Material Management</h2>
 
-  <button class="add-btn" (click)="openAddMaterial()">
-     Add Material
+  <button class="add-btn" (click)="!hasUpdateValue? openAddMaterial() : updateMaterial()">
+     {{!hasUpdateValue? 'Add Material' : 'Update Material'}}
   </button>
 </div>
 
 
 <div class="ag-theme-alpine material-grid">
-   @if(isBrowser){
+   @if(isBrowser && rowData.length){
       <ag-grid-angular
       [theme]="'legacy'"
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [defaultColDef]="defaultColDef"
+      [domLayout]="'autoHeight'"
       [pagination]="true"
       [paginationPageSize]="20"
-      [domLayout]="'autoHeight'">
+      (cellValueChanged)="onChangeCellValue($event)"
+      >
     </ag-grid-angular>
    }
 </div>

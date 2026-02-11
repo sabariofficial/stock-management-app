@@ -17,12 +17,14 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import { Popup } from './model/popup/popup';
 
 @NgModule({
   declarations: [
     App,
     Materials,
     AddMaterial,
+    Popup,
   ],
   imports: [
     BrowserModule,

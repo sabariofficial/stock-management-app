@@ -8,6 +8,8 @@ export class Common {
   constructor(private firestore: Firestore) { }
 
   selectedTitle = signal<string>('Dashboard');
+  list_of_items = signal<string[]>([])
+  list_of_sizes = signal<string[]>([])
 
   menus = [
     { label: 'Dashboard', route: '/dashboard' },
@@ -50,13 +52,13 @@ export class Common {
     });
   }
 
-  updateStock(id: string, data: any) {
-    const docRef = doc(this.firestore, `products/${id}`);
+  updateMaterialItem(data: any) {
+    const docRef = doc(this.firestore, `materials/${data.id}`);
     return updateDoc(docRef, data);
   }
 
-  deleteStock(id: string) {
-    const docRef = doc(this.firestore, `products/${id}`);
+  deleteMaterialItem(id: string) {
+    const docRef = doc(this.firestore, `materials/${id}`);
     return deleteDoc(docRef);
   }
 
