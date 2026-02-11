@@ -18,6 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { Popup } from './model/popup/popup';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { Popup } from './model/popup/popup';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

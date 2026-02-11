@@ -1,7 +1,7 @@
 .page-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   margin-bottom: 12px;
 }
 
@@ -13,6 +13,7 @@
   border-radius: 6px;
   font-size: 14px;
   cursor: pointer;
+  
 }
 
 .add-btn:hover {

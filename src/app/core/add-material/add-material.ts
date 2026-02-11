@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Common } from '../common';
 import { Snackbar } from '../../service/snackbar';
+import { Router } from '@angular/router';
 
 export interface AddMaterial {
   items: string;
@@ -28,7 +29,8 @@ export class AddMaterial implements OnInit {
   constructor(
     private fb: FormBuilder,
     private commonService: Common,
-    private snackbar: Snackbar
+    private snackbar: Snackbar,
+    private router:Router
   ) {
     this.getProductSize();
     this.getAllProducts();
@@ -54,6 +56,10 @@ export class AddMaterial implements OnInit {
   async addFormOnLoad(): Promise<any> {
     //  this.getProductSize();
   }
+
+  goBack() {
+  this.router.navigate(['home/materials']); 
+}
 
   calculateTotal() {
     const kg = this.materialForm.get('kg')?.value || 0;
