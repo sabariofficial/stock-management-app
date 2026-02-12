@@ -95,7 +95,7 @@ export class Manufacturing implements OnInit {
 
   
   ngOnInit(): void {
-    this.getManuFactureDetails()
+    // this.getManuFactureDetails()
     const items = this.commonService.list_of_items
     if (items().length == 0) {
       this.getAllProducts()
@@ -120,6 +120,7 @@ export class Manufacturing implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
+    this.getManuFactureDetails()
   }
 
   getManuFactureDetails() {
@@ -127,8 +128,6 @@ export class Manufacturing implements OnInit {
       if (res.length) {
         this.pendingData = res;
         this.gridApi.setGridOption('rowData', this.pendingData)
-        console.log(this.pendingData);
-        
       }
     })
   }

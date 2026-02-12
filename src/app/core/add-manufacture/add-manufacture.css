@@ -1,7 +1,13 @@
 .card{
-    width:600px
+    width:600px;
 }
 
 .col-form-label{
     font-weight: 600;
+}
+
+@media(max-width:768px) {
+.card{
+   width:100%;
+}
 }

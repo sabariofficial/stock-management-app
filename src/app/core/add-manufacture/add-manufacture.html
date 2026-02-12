@@ -1,5 +1,13 @@
 <div class="container">
     <div class="row">
+        <div class="col-12">
+            <div class="mb-3">
+                <button mat-stroked-button color="primary" class="back-btn" (click)="goBack()">
+                    <mat-icon>arrow_back</mat-icon>
+                    <span class="back-text">Back to Manufacture</span>
+                </button>
+            </div>
+        </div>
         <div class="col-12 d-flex justify-content-center">
             <div class="card p-3">
                 <h3 class="text-center mb-3">Add Manufacture Details</h3>
@@ -7,10 +15,11 @@
                     <div class="mb-3 row">
                         <label for="items" class="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-form-label">Items</label>
                         <div class="col-sm-12 col-md-10">
-                            <select formControlName="items" class="form-select" id="items" aria-label="Default select example">
+                            <select formControlName="items" class="form-select" id="items"
+                                aria-label="Default select example">
                                 <option value="">Choose your items</option>
                                 @for (item of items(); track $index) {
-                                  <option [value]="item">{{item}}</option>
+                                <option [value]="item">{{item}}</option>
                                 }
                             </select>
                         </div>
@@ -19,24 +28,27 @@
                         <label for="customer" class="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-form-label">customer</label>
                         <div class="col-sm-12 col-md-10">
                             <!-- <select class="form-select" id="customer" aria-label="Default select example">
-                                <option selected>Choose Your customer</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </select> -->
-                            <input type="text" formControlName="customer" class="form-control" id="customer" placeholder="enter your customer name">
+                                                    <option selected>Choose Your customer</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select> -->
+                            <input type="text" formControlName="customer" class="form-control" id="customer"
+                                placeholder="enter your customer name">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="kg" class="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-form-label">Kg</label>
                         <div class="col-sm-12 col-md-10">
-                            <input type="number" formControlName="kg" class="form-control" id="kg" placeholder="enter your kg">
+                            <input type="number" formControlName="kg" class="form-control" id="kg"
+                                placeholder="enter your kg">
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="date" class="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-form-label">Date</label>
                         <div class="col-sm-12 col-md-10">
-                            <input type="date" formControlName="date" class="form-control" id="date" placeholder="Choose your date">
+                            <input type="date" formControlName="date" class="form-control" id="date"
+                                placeholder="Choose your date">
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">

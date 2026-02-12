@@ -3,6 +3,7 @@ import { Common } from '../common';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Snackbar } from '../../service/snackbar';
 import { Writable } from 'stream';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-manufacture',
@@ -15,7 +16,8 @@ export class AddManufacture implements OnInit {
   items!: WritableSignal<string[]>;
   constructor(
     private commonService: Common,
-    private snackbar:Snackbar
+    private snackbar: Snackbar,
+    private router:Router
   ) { 
     this.manufactureForm = new FormGroup({
       items: new FormControl('', Validators.required),
@@ -55,5 +57,9 @@ export class AddManufacture implements OnInit {
     } catch (err:any) {
       this.snackbar.openSnackBar(err)
     }
+  }
+
+  goBack() {
+    this.router.navigate(['home/daily-manufacture'])
   }
 }
