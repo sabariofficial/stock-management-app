@@ -19,6 +19,7 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { Popup } from './model/popup/popup';
 import { AddManufacture } from './core/add-manufacture/add-manufacture';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AddManufacture } from './core/add-manufacture/add-manufacture';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCardModule
+    MatCardModule,
+    MatIconModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

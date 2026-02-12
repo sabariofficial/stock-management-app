@@ -54,7 +54,7 @@ export class Materials implements OnInit {
     {
       field: 'items',
       headerName: 'Item',
-      minWidth: 150,
+      minWidth: 70,
       editable: true,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams:()=> ({
@@ -65,7 +65,7 @@ export class Materials implements OnInit {
     {
       field: 'itemSize',
       headerName: 'Size',
-      minWidth: 120,
+      minWidth: 70,
       editable: true,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams:()=> ({
@@ -73,10 +73,10 @@ export class Materials implements OnInit {
       }),
       cellDataType: 'text',
     },
-    { field: 'kg', headerName: 'KG', minWidth: 100,editable:true,cellDataType:'number' },
-    { field: 'price', headerName: 'Price', minWidth: 100,editable:true,cellDataType:'number' },
-    { field: 'date', headerName: 'Date', minWidth: 100,editable:true,cellEditor:'agDateCellEditor',cellDataType:'date'},
-    { headerName: 'Total', field: 'total', minWidth: 100, cellDataType: 'numericColumn' },
+    { field: 'kg', headerName: 'KG', minWidth: 50,editable:true,cellDataType:'number' },
+    { field: 'price', headerName: 'Price', minWidth: 50,editable:true,cellDataType:'number' },
+    { field: 'date', headerName: 'Date', minWidth: 50,editable:true,cellEditor:'agDateCellEditor',cellDataType:'date'},
+    { headerName: 'Total', field: 'total', minWidth: 50, cellDataType: 'numericColumn' },
     {
       headerName: 'Actions',
       width: (this.isMobile)? 70 : 100,
