@@ -1,0 +1,39 @@
+.page-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+::ng-deep .delete{
+    display: flex;
+    justify-content: center;
+    color: #e53935;
+    font-size: 22px;
+}
+
+::ng-deep .ag-cell-value{
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+
+
+/* Mobile view */
+@media (max-width: 768px) {
+  .page-header {
+    display: block;
+  }
+
+  .fab {
+    display: block;
+  }
+
+  ::ng-deep .ag-paging-row-summary-panel {
+    display: none !important;
+  }
+
+  ::ng-deep .ag-paging-description{
+    font-size: 8px;
+  }
+}

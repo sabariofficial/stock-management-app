@@ -22,8 +22,7 @@ export class SideNav {
 
   addMenu(menu: any) {
     const exists = this.menus.some(m => m.label === menu.label);
-    console.log(exists);
-    
+    // console.log(exists);
     if (!exists) {
       this.menus.push(menu);
     }

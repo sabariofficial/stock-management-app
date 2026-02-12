@@ -55,6 +55,13 @@ const routes: Routes = [
           import('../../add-material/add-material/add-material-module')
             .then(m => m.AddMaterialModule)
       },
+      {
+        path: 'add-manufacture',
+        title:"Add Manufacture",
+        loadChildren: () =>
+          import('../../add-manufacture/add-manufacture/add-manufacture-module')
+            .then(m => m.AddManufactureModule)
+      },
     ]
   }
 ];

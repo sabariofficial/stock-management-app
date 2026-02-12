@@ -78,7 +78,6 @@ export class AddMaterial implements OnInit {
         this.products = products;
         this.commonService.list_of_items = products;
       }
-
     })
   }
 
@@ -88,8 +87,8 @@ export class AddMaterial implements OnInit {
       await this.commonService.addMaterial(payload);
       this.snackbar.openSnackBar('Material added successfully!')
       this.materialForm.reset()
-    } catch (error) {
-      this.snackbar.openSnackBar('error')
+    } catch (error:any) {
+      this.snackbar.openSnackBar(error)
     }
   }
 

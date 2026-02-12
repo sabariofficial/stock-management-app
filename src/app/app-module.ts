@@ -18,6 +18,7 @@ import { MatCardModule } from '@angular/material/card';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { Popup } from './model/popup/popup';
+import { AddManufacture } from './core/add-manufacture/add-manufacture';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { Popup } from './model/popup/popup';
     Materials,
     AddMaterial,
     Popup,
+    AddManufacture,
   ],
   imports: [
     BrowserModule,

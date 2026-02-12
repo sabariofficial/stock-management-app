@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID, WritableSignal } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, Inject, OnInit, PLATFORM_ID, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColDef } from 'ag-grid-community';
 import { Common } from '../common';
@@ -18,7 +18,8 @@ export class Materials implements OnInit {
   productList!: WritableSignal<string[]>;
   sizes!: WritableSignal<string[]>;
   hasUpdateValue: boolean = false;
-  updateMaterialValue:any = {}
+  updateMaterialValue: any = {}
+  isMobile!: boolean;
   constructor(
     private router: Router,
     private commonService: Common,
@@ -47,7 +48,7 @@ export class Materials implements OnInit {
     {
       headerName: 'S.No',
       valueGetter: 'node.rowIndex + 1',
-      width: 70,
+      width:(this.isMobile)? 70 : 100,
       pinned: 'left'
     },
     {
@@ -78,7 +79,7 @@ export class Materials implements OnInit {
     { headerName: 'Total', field: 'total', minWidth: 100, cellDataType: 'numericColumn' },
     {
       headerName: 'Actions',
-      width: 70,
+      width: (this.isMobile)? 70 : 100,
       pinned: 'right',
       cellRenderer: () => `
           <span class="material-icons delete">delete</span>
@@ -99,6 +100,12 @@ export class Materials implements OnInit {
 
   rowData: any = [
   ];
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.isMobile = event.target.innerWidth > 768;
+    // console.log(this.isMobile);
+  }
 
   openAddMaterial() {
     this.router.navigate(["home/add-material"])

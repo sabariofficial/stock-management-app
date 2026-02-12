@@ -21,6 +21,7 @@ export class Common {
     { label: 'Zinc', route: '/zinc' },
     { label: 'Settings', route: '/settings' },
     { label: 'Material Management', route: '/add-material' },
+    { label: 'Day-by-Day Manufacturing', route: '/add-manufacture' },
   ];
 
   setTitle(name: string) {
@@ -42,6 +43,11 @@ export class Common {
     return collectionData(colRef, { idField: 'id' });
   }
 
+   getManufactureDetails() {
+    const colRef = collection(this.firestore, 'manufacture');
+    return collectionData(colRef, { idField: 'id' });
+  }
+
   addMaterial(material: any) {
     const colRef = collection(this.firestore, 'materials');
 
@@ -52,13 +58,31 @@ export class Common {
     });
   }
 
+  addManufacture(manufacture: any) {
+    const colRef = collection(this.firestore, 'manufacture');
+    return addDoc(colRef, {
+      ...manufacture,
+      created_at:Timestamp.now()
+    })
+  }
+
   updateMaterialItem(data: any) {
     const docRef = doc(this.firestore, `materials/${data.id}`);
     return updateDoc(docRef, data);
   }
 
+  updateManufactureItem(data: any) {
+    const docRef = doc(this.firestore, `manufacture/${data.id}`);
+    return updateDoc(docRef, data);
+  }
+
   deleteMaterialItem(id: string) {
     const docRef = doc(this.firestore, `materials/${id}`);
+    return deleteDoc(docRef);
+  }
+
+  deleteManufactureItem(id: string) {
+    const docRef = doc(this.firestore, `manufacture/${id}`);
     return deleteDoc(docRef);
   }
 
