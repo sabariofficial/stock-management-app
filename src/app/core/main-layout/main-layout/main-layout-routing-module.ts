@@ -62,6 +62,13 @@ const routes: Routes = [
           import('../../add-manufacture/add-manufacture/add-manufacture-module')
             .then(m => m.AddManufactureModule)
       },
+      {
+        path: 'add-stock',
+        title:"Add Stock",
+        loadChildren: () =>
+          import('../../add-stock/stock/stock-module')
+            .then(m => m.AddStockModule)
+      },
     ]
   }
 ];

@@ -48,7 +48,7 @@ export class Materials implements OnInit {
     {
       headerName: 'S.No',
       valueGetter: 'node.rowIndex + 1',
-      width:(this.isMobile)? 70 : 100,
+      width: 80 ,
       pinned: 'left'
     },
     {
@@ -79,7 +79,7 @@ export class Materials implements OnInit {
     { headerName: 'Total', field: 'total', minWidth: 50, cellDataType: 'numericColumn' },
     {
       headerName: 'Actions',
-      width: (this.isMobile)? 70 : 100,
+      width: 70,
       pinned: 'right',
       cellRenderer: () => `
           <span class="material-icons delete">delete</span>

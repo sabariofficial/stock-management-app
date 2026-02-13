@@ -22,6 +22,7 @@ export class Common {
     { label: 'Settings', route: '/settings' },
     { label: 'Material Management', route: '/add-material' },
     { label: 'Day-by-Day Manufacturing', route: '/add-manufacture' },
+    { label: 'Stock Management', route: '/add-stock' },
   ];
 
   setTitle(name: string) {
@@ -43,8 +44,13 @@ export class Common {
     return collectionData(colRef, { idField: 'id' });
   }
 
-   getManufactureDetails() {
+  getManufactureDetails() {
     const colRef = collection(this.firestore, 'manufacture');
+    return collectionData(colRef, { idField: 'id' });
+  }
+
+  getStockDetails() {
+    const colRef = collection(this.firestore, 'stock');
     return collectionData(colRef, { idField: 'id' });
   }
 
@@ -66,6 +72,14 @@ export class Common {
     })
   }
 
+  addStockDetails(data:any) {
+    const colRef = collection(this.firestore, 'stock')
+    return addDoc(colRef, {
+      ...data,
+      created_at:Timestamp.now()
+    })
+  }
+
   updateMaterialItem(data: any) {
     const docRef = doc(this.firestore, `materials/${data.id}`);
     return updateDoc(docRef, data);
@@ -76,6 +90,11 @@ export class Common {
     return updateDoc(docRef, data);
   }
 
+  updateStockItem(data: any) {
+    const docRef = doc(this.firestore, `stock/${data.id}`);
+    return updateDoc(docRef, data);
+  }
+
   deleteMaterialItem(id: string) {
     const docRef = doc(this.firestore, `materials/${id}`);
     return deleteDoc(docRef);
@@ -83,6 +102,11 @@ export class Common {
 
   deleteManufactureItem(id: string) {
     const docRef = doc(this.firestore, `manufacture/${id}`);
+    return deleteDoc(docRef);
+  }
+
+  deleteStockItem(id: string) {
+    const docRef = doc(this.firestore, `stock/${id}`);
     return deleteDoc(docRef);
   }
 

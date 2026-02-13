@@ -20,6 +20,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { Popup } from './model/popup/popup';
 import { AddManufacture } from './core/add-manufacture/add-manufacture';
 import { MatIconModule } from '@angular/material/icon';
+import { AddStock } from './core/add-stock/add-stock';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MatIconModule } from '@angular/material/icon';
     AddMaterial,
     Popup,
     AddManufacture,
+    AddStock,
   ],
   imports: [
     BrowserModule,

@@ -24,7 +24,7 @@ export class Manufacturing implements OnInit {
     {
       headerName: 's.no',
       valueGetter: 'node.rowIndex + 1',
-      width:(this.isMobile)? 70 : 100,
+      width:80,
       pinned:'left'
     },
     {
@@ -62,7 +62,7 @@ export class Manufacturing implements OnInit {
     {
       headerName: 'Actions',
       field: '',
-      width: (this.isMobile)? 70 : 100,
+      width: 80,
       pinned: 'right',
       cellRenderer : () => `
           <span class="material-icons delete">delete</span>

@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 mb-3">
+            <button mat-stroked-button color="primary" class="back-btn" (click)="goBack()">
+                <mat-icon>arrow_back</mat-icon>
+                Back to stock
+            </button>
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <div class="card p-5">
+                <h3 class="text-center mb-3">Add Stock</h3>
+                <form [formGroup]="stockForm">
+                   <div class="mb-3 row">
+                        <label for="items" class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-form-label">Items</label>
+                        <div class="col-sm-12 col-md-9">
+                            <input type="text" formControlName="items" class="form-control" id="items"
+                                placeholder="enter your item name">
+                        </div>
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="kg" class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-form-label">Kg / Boxes</label>
+                        <div class="col-sm-12 col-md-9">
+                            <input type="number" formControlName="kg" class="form-control" id="kg"
+                            placeholder="enter kg or box">
+                        </div>
+                        
+                    </div>
+                    <div class="mb-3 row">
+                        <label for="type" class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-form-label">Type</label>
+                        <div class="col-sm-12 col-md-9">
+                            <select formControlName="type" class="form-select" id="type" aria-label="Default select example">
+                                <option value="">Choose your items</option>
+                                <option value="Zinc">Zinc</option>
+                                <option value="GI">GI</option>
+                                <option value="Powder">Powder</option>     
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button mat-raised-button color="primary" (click)="addStock()">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

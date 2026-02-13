@@ -1,0 +1,25 @@
+.page-header{
+    margin-bottom: 16px;
+}
+::ng-deep .delete{
+   color: #e53935;
+   font-size: 22px;
+   display: flex;
+   justify-content: center;
+}
+
+::ng-deep .ag-column-last{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+  ::ng-deep .ag-paging-row-summary-panel {
+    display: none !important;
+  }
+
+  ::ng-deep .ag-paging-description{
+    font-size: 8px;
+  }
+}
