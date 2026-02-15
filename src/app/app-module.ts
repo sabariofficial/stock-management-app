@@ -21,6 +21,8 @@ import { Popup } from './model/popup/popup';
 import { AddManufacture } from './core/add-manufacture/add-manufacture';
 import { MatIconModule } from '@angular/material/icon';
 import { AddStock } from './core/add-stock/add-stock';
+import { AddZinc } from './core/zinc-details/add-zinc/add-zinc';
+import { ZincDetails } from './core/zinc-details/zinc-details';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { AddStock } from './core/add-stock/add-stock';
     Popup,
     AddManufacture,
     AddStock,
+    AddZinc,
+    ZincDetails
   ],
   imports: [
     BrowserModule,

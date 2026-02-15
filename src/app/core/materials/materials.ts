@@ -187,14 +187,17 @@ export class Materials implements OnInit {
       this.hasUpdateValue = false;
       this.cdr.detectChanges()
     }).catch((err) => {
-      this.snackbar.openSnackBar(err)
+      this.snackbar.openSnackBar(err);
     })
   }
 
   removeMaterial(data:any) {
     const dialogRef =  this.dialog.open(Popup, {
         disableClose: true,
-        autoFocus:false
+        autoFocus:false,
+         data:{
+          itemName:data.items
+        },
     })
     
     dialogRef.afterClosed().subscribe((res) => {

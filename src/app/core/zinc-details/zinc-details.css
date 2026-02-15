@@ -1,0 +1,69 @@
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+.add-btn {
+  background-color: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  
+}
+
+.add-btn:hover {
+  background-color: #125aa0;
+}
+
+/* Floating Action Button (Mobile) */
+.fab {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  font-size: 28px;
+  border-radius: 50%;
+  border: none;
+  background: #1976d2;
+  color: white;
+  cursor: pointer;
+}
+
+::ng-deep .delete{
+  font-size: 22px;
+  color: #e53935;
+  display: flex;
+  justify-content: center;
+}
+
+::ng-deep .ag-column-last{
+  display: flex;
+  justify-content:center;
+  align-items: center;
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+  .page-header {
+    display: block;
+  }
+
+  .fab {
+    display: block;
+  }
+
+  ::ng-deep .ag-paging-row-summary-panel {
+    display: none !important;
+  }
+
+  ::ng-deep .ag-paging-description{
+    font-size: 8px;
+  }
+}

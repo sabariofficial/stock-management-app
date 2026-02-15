@@ -1,0 +1,89 @@
+<div class="card-header">
+  <button mat-stroked-button color="primary" class="back-btn" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+    <span class="back-text">Back to Zinc</span>
+  </button>
+</div>
+
+
+<mat-card class="material-card">
+  <mat-card-title class="title-text">Add Zinc</mat-card-title>
+  <mat-card-subtitle class="subtitle-text">Enter zinc details</mat-card-subtitle>
+  <form [formGroup]="zincForm">
+
+    <div class="grid">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Item</mat-label>
+        <mat-select formControlName="items">
+          @for (item of products; track $index) {
+          <mat-option [value]="item">
+            {{ item }}
+          </mat-option>
+          }
+        </mat-select>
+        @if (!fcItem.valid && fcItem.touched || fcItem.dirty) {
+        <mat-error>Please select the item</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Item Size</mat-label>
+        <mat-select formControlName="itemSize">
+          @for (size of itemSizes; track $index) {
+          <mat-option [value]="size">
+            {{ size }}
+          </mat-option>
+          }
+        </mat-select>
+        @if (!fcItemSize.valid && fcItemSize.touched || fcItemSize.dirty) {
+        <mat-error>Please select the item size</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>KG</mat-label>
+        <input matInput type="number" formControlName="kg">
+        @if (!fcKg.valid && fcKg.touched || fcKg.dirty) {
+        <mat-error>Please enter the KG</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Price</mat-label>
+        <input matInput type="number" formControlName="price">
+        @if (!fcPrice.valid && fcPrice.touched || fcPrice.dirty) {
+        <mat-error>Please enter the price</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="readonly">
+        <mat-label>Total</mat-label>
+        <input matInput formControlName="total" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        @if (!fcDate.valid && fcDate.touched || fcDate.dirty) {
+        <mat-error>Please select the date</mat-error>
+        }
+      </mat-form-field>
+
+    </div>
+
+    <div class="actions">
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        (click)="addMaterial()"
+        [disabled]="zincForm.invalid">
+        Add Zinc
+      </button>
+    </div>
+
+  </form>
+</mat-card>

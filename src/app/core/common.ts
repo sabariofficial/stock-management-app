@@ -29,7 +29,7 @@ export class Common {
     this.selectedTitle.set(name);
   }
 
-  getAllProducts() {
+    getAllProducts() {
     const colRef = collection(this.firestore, 'products_list');
     return collectionData(colRef, { idField: 'id' });
   }

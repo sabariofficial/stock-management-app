@@ -63,6 +63,13 @@ const routes: Routes = [
             .then(m => m.AddManufactureModule)
       },
       {
+        path: 'add-zinc',
+        title:"Add Zinc details",
+        loadChildren: () =>
+          import('../../zinc-details/add-zinc/add-zinc-module')
+            .then(m => m.AddZincModule)
+      },
+      {
         path: 'add-stock',
         title:"Add Stock",
         loadChildren: () =>

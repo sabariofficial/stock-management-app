@@ -160,7 +160,10 @@ export class Manufacturing implements OnInit {
   removeManufactureDetails(data: any) {
     const dialogRef = this.dialog.open(Popup, {
       disableClose: true,
-      autoFocus:false
+      autoFocus:false,
+      data:{
+          itemName:data.items
+        },
     })
 
     dialogRef.afterClosed().subscribe((res) => {
