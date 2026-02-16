@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, HostListener, Inject, OnInit, PLATFORM_ID, WritableSignal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { Popup } from '../../model/popup/popup';
 import { Snackbar } from '../../service/snackbar';
 import { Common } from '../common';
@@ -33,6 +33,7 @@ export class ZincDetails implements OnInit {
   hasUpdateValue: boolean = false;
   updateZincValue: any = {}
   isMobile!: boolean;
+  gridApi!: GridApi;
   constructor(
     private router: Router,
     private commonService: Common,
@@ -45,7 +46,7 @@ export class ZincDetails implements OnInit {
     this.isBrowser = isPlatformBrowser(this.platformId);
     this.productList = this.commonService.list_of_items;
     this.sizes = this.commonService.list_of_sizes;
-    this.getZincDetails();
+    // this.getZincDetails();
   }
 
   ngOnInit(): void {
@@ -121,6 +122,11 @@ export class ZincDetails implements OnInit {
     // console.log(this.isMobile);
   }
 
+  onGridReady(params:GridReadyEvent) {
+    this.gridApi = params.api;
+    this.getZincDetails()
+  }
+
   openAddZinc() {
     this.router.navigate(["home/add-zinc"])
   }
@@ -139,7 +145,8 @@ export class ZincDetails implements OnInit {
         })) || [];
         console.log(this.rowData);
         
-      this.cdr.detectChanges();
+        this.gridApi.setGridOption('rowData', this.rowData);
+        // this.cdr.detectChanges();
       }
     })
   }

@@ -1,0 +1,20 @@
+<div class="container p-3">
+    <div class="row">
+        <div class="d-flex" [ngClass]="imageUrl()? 'justify-content-between':'justify-content-center'">
+            <button class="btn btn-primary" (click)="fileInput.click()">Upload</button>
+            <input type="file"
+            hidden
+            #fileInput
+            accept="image/*"
+            (change)="upload($event)">
+            @if(imageUrl()){
+              <button class="btn btn-success" (click)="downloadImage()">Download</button>
+            }
+        </div>
+        @if (imageUrl()) {
+            <div class="col-12 mt-2">
+                <img [src]="imageUrl()" [alt]="imageUrl()" class="preview-img">
+            </div>
+        }
+    </div>
+</div>

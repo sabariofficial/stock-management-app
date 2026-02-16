@@ -72,7 +72,7 @@ export class AddZinc implements OnInit {
       if (res.length) {
         const productSize = res[0].productSize;
         this.itemSizes = productSize;
-        this.commonService.list_of_sizes = productSize;
+        this.commonService.list_of_sizes.set(productSize);
       }
     })
   }
@@ -82,7 +82,7 @@ export class AddZinc implements OnInit {
       if (res.length) {
         const products = res[0].product_name;
         this.products = products;
-        this.commonService.list_of_items = products;
+        this.commonService.list_of_items.set(products);
       }
     })
   }

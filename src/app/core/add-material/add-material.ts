@@ -43,7 +43,8 @@ export class AddMaterial implements OnInit {
       kg: [null, [Validators.required, Validators.min(1)]],
       price: [null, [Validators.required, Validators.min(1)]],
       total: [],
-      date: ['', Validators.required]
+      date: ['', Validators.required],
+      image:['']
     });
 
     // Auto-calculate total
@@ -72,7 +73,7 @@ export class AddMaterial implements OnInit {
       if (res.length) {
         const productSize = res[0].productSize;
         this.itemSizes = productSize;
-        this.commonService.list_of_sizes = productSize;
+        this.commonService.list_of_sizes.set(productSize);
       }
     })
   }
@@ -82,7 +83,7 @@ export class AddMaterial implements OnInit {
       if (res.length) {
         const products = res[0].product_name;
         this.products = products;
-        this.commonService.list_of_items = products;
+        this.commonService.list_of_items.set(products);
       }
     })
   }
@@ -96,6 +97,15 @@ export class AddMaterial implements OnInit {
     } catch (error:any) {
       this.snackbar.openSnackBar(error)
     }
+  }
+
+  async fileUpload(event:any) {
+    const file = event.target.files[0];
+    // const file_path = `material/${file.name}`
+    const url = await this.commonService.uploadImage(file)
+    this.materialForm.patchValue({
+      image:url.secure_url
+    })
   }
 
 }

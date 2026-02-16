@@ -1,11 +1,12 @@
-import { ChangeDetectorRef, Component, HostListener, Inject, OnInit, PLATFORM_ID, WritableSignal } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, HostListener, Inject, OnInit, PLATFORM_ID, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { Common } from '../common';
 import { isPlatformBrowser } from '@angular/common';
 import { Snackbar } from '../../service/snackbar';
 import { MatDialog } from '@angular/material/dialog';
 import { Popup } from '../../model/popup/popup'
+import { ImgPreview } from '../../model/img-preview/img-preview';
 
 @Component({
   selector: 'app-materials',
@@ -15,11 +16,12 @@ import { Popup } from '../../model/popup/popup'
 })
 export class Materials implements OnInit {
   isBrowser = false;
-  productList!: WritableSignal<string[]>;
-  sizes!: WritableSignal<string[]>;
+  productList:string[]=[];
+  sizes:string[]=[];
   hasUpdateValue: boolean = false;
   updateMaterialValue: any = {}
   isMobile!: boolean;
+  gridApi!: GridApi;
   constructor(
     private router: Router,
     private commonService: Common,
@@ -29,17 +31,20 @@ export class Materials implements OnInit {
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
-    this.productList = this.commonService.list_of_items;
-    this.sizes = this.commonService.list_of_sizes;
-    this.getMaterialDetails();
+    effect(() => {
+      this.productList = this.commonService.list_of_items();
+      this.sizes = this.commonService.list_of_sizes();
+    })
   }
 
   ngOnInit(): void {
-    if (this.productList().length === 0) {
+
+
+    if (this.productList.length === 0) {
       this.getAllProducts()
     }
 
-    if (this.sizes().length === 0) {
+    if (this.sizes.length === 0) {
       this.getProductSize()
     }
   }
@@ -58,7 +63,7 @@ export class Materials implements OnInit {
       editable: true,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams:()=> ({
-        values:this.productList()
+        values:this.productList
       }),
       cellDataType:'text'
     },
@@ -69,7 +74,7 @@ export class Materials implements OnInit {
       editable: true,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams:()=> ({
-        values:this.sizes()
+        values:this.sizes
       }),
       cellDataType: 'text',
     },
@@ -77,6 +82,17 @@ export class Materials implements OnInit {
     { field: 'price', headerName: 'Price', minWidth: 50,editable:true,cellDataType:'number' },
     { field: 'date', headerName: 'Date', minWidth: 50,editable:true,cellEditor:'agDateCellEditor',cellDataType:'date'},
     { headerName: 'Total', field: 'total', minWidth: 50, cellDataType: 'numericColumn' },
+    {
+      headerName: 'Image',
+      cellClass: 'image-cell-center',
+      minWidth: 50,
+      cellRenderer: () => `
+       <span class="material-icons image">visibility</span>
+      `,
+      onCellClicked: (params) => {
+        this.showImage(params.data)
+      }
+    },
     {
       headerName: 'Actions',
       width: 70,
@@ -107,6 +123,11 @@ export class Materials implements OnInit {
     // console.log(this.isMobile);
   }
 
+  onGridReady(params:GridReadyEvent) {
+      this.gridApi = params.api;
+      this.getMaterialDetails()
+  }
+
   openAddMaterial() {
     this.router.navigate(["home/add-material"])
   }
@@ -121,11 +142,12 @@ export class Materials implements OnInit {
           kg: data.kg,
           price: data.price,
           date: data.date?.toDate ? data.date.toDate() : null,
-          total: data.total
+          total: data.total,
+          image:data.image
         }));
         console.log(this.rowData);
-        
-      this.cdr.detectChanges();
+        this.gridApi.setGridOption('rowData',this.rowData)
+        this.cdr.detectChanges();
       }
     })
   }
@@ -208,6 +230,14 @@ export class Materials implements OnInit {
           this.snackbar.openSnackBar(err)
         })
       }
+    })
+  }
+
+  showImage(data:any) {
+    this.dialog.open(ImgPreview, {
+      autoFocus: false,
+      width:(this.isMobile)? '100%':'500px',
+      data:data
     })
   }
 

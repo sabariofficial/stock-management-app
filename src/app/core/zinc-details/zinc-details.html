@@ -10,10 +10,10 @@
 
 
 <div class="ag-theme-alpine material-grid">
-   <!-- @if(isBrowser && rowData.length){ -->
+   @if(isBrowser){
       <ag-grid-angular
       [theme]="'legacy'"
-      [rowData]="rowData"
+      (gridReady)="onGridReady($event)"
       [columnDefs]="columnDefs"
       [defaultColDef]="defaultColDef"
       [domLayout]="'autoHeight'"
@@ -22,5 +22,5 @@
       (cellValueChanged)="onChangeCellValue($event)"
       >
     </ag-grid-angular>
-   <!-- } -->
+   }
 </div>

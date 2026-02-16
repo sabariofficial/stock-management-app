@@ -1,5 +1,6 @@
-import { Injectable, signal } from '@angular/core';
-import { Firestore,collection,addDoc,Timestamp, collectionData, doc, updateDoc, deleteDoc } from '@angular/fire/firestore';
+import { Injectable, signal, WritableSignal } from '@angular/core';
+import { Firestore, collection, addDoc, Timestamp, collectionData, doc, updateDoc, deleteDoc } from '@angular/fire/firestore';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 @Injectable({
   providedIn: 'root',
@@ -8,8 +9,8 @@ export class Common {
   constructor(private firestore: Firestore) { }
 
   selectedTitle = signal<string>('Dashboard');
-  list_of_items = signal<string[]>([])
-  list_of_sizes = signal<string[]>([])
+  list_of_items:WritableSignal<string[]> = signal<string[]>([]);
+  list_of_sizes:WritableSignal<string[]> = signal<string[]>([]);
 
   menus = [
     { label: 'Dashboard', route: '/dashboard' },
@@ -29,7 +30,29 @@ export class Common {
     this.selectedTitle.set(name);
   }
 
-    getAllProducts() {
+  // async uploadImage(file:File,file_path:string) {
+  //   const stoarge = getStorage()
+  //   const stoargeRef = ref(stoarge, file_path);
+  //   await uploadBytes(stoargeRef, file).then((snapshot) => {
+  //     getDownloadURL(stoargeRef).then((downloadURL) => {
+  //        return downloadURL
+  //     });
+  //   }).catch((err) => {
+  //     console.error(err);
+  //   })
+  // }
+  async uploadImage(file: File) {
+    const data = new FormData()
+    data.append('file', file)
+    data.append('upload_preset', 'angular_upload')
+    
+    return fetch('https://api.cloudinary.com/v1_1/vignesh-dev/image/upload', {
+      method: 'POST',
+      body:data
+    }).then((res)=> res.json())
+  }
+
+  getAllProducts() {
     const colRef = collection(this.firestore, 'products_list');
     return collectionData(colRef, { idField: 'id' });
   }

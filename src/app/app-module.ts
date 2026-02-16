@@ -23,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { AddStock } from './core/add-stock/add-stock';
 import { AddZinc } from './core/zinc-details/add-zinc/add-zinc';
 import { ZincDetails } from './core/zinc-details/zinc-details';
+import { ImgPreview } from './model/img-preview/img-preview';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ZincDetails } from './core/zinc-details/zinc-details';
     AddManufacture,
     AddStock,
     AddZinc,
-    ZincDetails
+    ZincDetails,
+    ImgPreview
   ],
   imports: [
     BrowserModule,

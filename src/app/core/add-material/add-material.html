@@ -16,9 +16,9 @@
       <mat-form-field appearance="outline">
         <mat-label>Item</mat-label>
         <mat-select formControlName="items">
-          <mat-option *ngFor="let i of products" [value]="i">
-            {{ i }}
-          </mat-option>
+          @for (item of products; track $index) {
+            <mat-option [value]="item">{{item}}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
 
@@ -52,6 +52,8 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
+
+      <input type="file" formControlName="image" (change)="fileUpload($event)" name="image" id="image">
 
     </div>
 
