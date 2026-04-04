@@ -1,46 +1,97 @@
-<div class="container">
-    <div class="row">
-        <div class="col-12 mb-3">
-            <button mat-stroked-button color="primary" class="back-btn" (click)="goBack()">
-                <mat-icon>arrow_back</mat-icon>
-                Back to stock
-            </button>
-        </div>
-        <div class="col-12 d-flex justify-content-center">
-            <div class="card p-5">
-                <h3 class="text-center mb-3">Add Stock</h3>
-                <form [formGroup]="stockForm">
-                   <div class="mb-3 row">
-                        <label for="items" class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-form-label">Items</label>
-                        <div class="col-sm-12 col-md-9">
-                            <input type="text" formControlName="items" class="form-control" id="items"
-                                placeholder="enter your item name">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="kg" class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-form-label">Kg / Boxes</label>
-                        <div class="col-sm-12 col-md-9">
-                            <input type="number" formControlName="kg" class="form-control" id="kg"
-                            placeholder="enter kg or box">
-                        </div>
-                        
-                    </div>
-                    <div class="mb-3 row">
-                        <label for="type" class="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-form-label">Type</label>
-                        <div class="col-sm-12 col-md-9">
-                            <select formControlName="type" class="form-select" id="type" aria-label="Default select example">
-                                <option value="">Choose your items</option>
-                                <option value="Zinc">Zinc</option>
-                                <option value="GI">GI</option>
-                                <option value="Powder">Powder</option>     
-                            </select>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button mat-raised-button color="primary" (click)="addStock()">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+<div class="card-header">
+  <button mat-stroked-button color="primary" class="back-btn" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+    <span class="back-text">Back to Stocks</span>
+  </button>
 </div>
+
+
+<mat-card class="material-card">
+  <mat-card-title class="title-text">Add Stock</mat-card-title>
+  <mat-card-subtitle class="subtitle-text">Enter stock details</mat-card-subtitle>
+  <form [formGroup]="stockForm">
+
+    <div class="grid">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Item</mat-label>
+        <mat-select formControlName="items">
+          @for (item of products; track $index) {
+          <mat-option [value]="item">
+            {{ item }}
+          </mat-option>
+          }
+        </mat-select>
+        @if (!fcItem.valid && fcItem.touched || fcItem.dirty) {
+        <mat-error>Please select the item</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Item Size</mat-label>
+        <mat-select formControlName="itemSize" (selectionChange)="onSelectItemSize($event)">
+          @for (size of itemSizes; track $index) {
+          <mat-option [value]="size">
+            {{ size }}
+          </mat-option>
+          }
+        </mat-select>
+        @if (!fcItemSize.valid && fcItemSize.touched || fcItemSize.dirty) {
+        <mat-error>Please select the item size</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Total Material KG</mat-label>
+        <input matInput type="number" formControlName="totalMaterialKg">
+        @if (!fcTotalMaterialKg.valid && fcTotalMaterialKg.touched || fcKg.dirty) {
+        <mat-error>Please enter the KG</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>KG</mat-label>
+        <input matInput type="number" formControlName="kg" (blur)="weightCalculation()">
+        @if (!fcKg.valid && fcKg.touched || fcKg.dirty) {
+        <mat-error>Please enter the KG</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Price</mat-label>
+        <input matInput type="number" formControlName="price">
+        @if (!fcPrice.valid && fcPrice.touched || fcPrice.dirty) {
+        <mat-error>Please enter the price</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="readonly">
+        <mat-label>Total</mat-label>
+        <input matInput formControlName="total" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        @if (!fcDate.valid && fcDate.touched || fcDate.dirty) {
+        <mat-error>Please select the date</mat-error>
+        }
+      </mat-form-field>
+
+    </div>
+
+    <div class="actions">
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        (click)="addStock()"
+        [disabled]="stockForm.invalid">
+        Add Zinc
+      </button>
+    </div>
+
+  </form>
+</mat-card>

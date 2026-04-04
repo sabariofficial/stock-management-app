@@ -1,5 +1,5 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
-import { Firestore, collection, addDoc, Timestamp, collectionData, doc, updateDoc, deleteDoc } from '@angular/fire/firestore';
+import { Firestore, collection, addDoc, Timestamp, collectionData, doc, updateDoc, deleteDoc, docData } from '@angular/fire/firestore';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 @Injectable({
@@ -65,6 +65,11 @@ export class Common {
   getMaterialDetails() {
     const colRef = collection(this.firestore, 'materials');
     return collectionData(colRef, { idField: 'id' });
+  }
+
+  getMaterialById(id: string) {
+  const docRef = doc(this.firestore, `materials/${id}`);
+  return docData(docRef, { idField: 'id' });
   }
 
   getManufactureDetails() {

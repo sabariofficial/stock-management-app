@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, effect, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { Common } from '../common';
@@ -15,70 +15,60 @@ import { Popup } from '../../model/popup/popup';
   styleUrl: './stock-management.css',
 })
 export class StockManagement implements OnInit {
-  rowData:any[] = []
+  rowData:any[] = [];
+  productList:string[]=[];
+  sizes:string[]=[];
   isBrowser: Boolean = false;
   hasUpdateValue: Boolean = false;
   isMobile!: Boolean;
   gridApi!: GridApi;
   updatedValue:any = {}
-  columnDefs: ColDef[] = [
-    {
-      headerName: 's.no',
-      valueGetter: 'node.rowIndex + 1',
-      width: 80,
-      pinned:'left'
-    },
-    {
-      headerName: 'Items',
-      field:'items',
-      flex: 2,
-      minWidth: 250,
-      editable: true,
-      cellDataType:'text'
-    },
-    {
-      headerName: 'Kg/Boxes',
-      field: 'kg',
-      editable: true,
-      cellDataType: 'number',
-      flex: 1,
-      minWidth: 180,
-    },
-    {
-      headerName: 'Type',
-      field: 'type',
-      editable: true,
-      cellDataType: 'text',
-      flex: 2,
-      minWidth: 250,
-      cellEditor: 'agSelectCellEditor',
-      cellEditorParams: () => ({ values: ['Zinc', 'GI', 'Powder']})
-    },
-    {
-      headerName: 'date',
-      field: 'created_at',
-      cellDataType:'text',
-      flex: 1,
-      minWidth: 180,
-      valueFormatter: (params) => {
-        const date = params.value.toDate()
-        return formatDate(date, 'yyyy-MM-dd', 'en-Us') ?? ''
-      }
-    },
-    {
-      headerName: 'Actions',
-      field: '',
-      cellRenderer: () => `
-         <span class="material-icons delete">delete</span>
-      `,
-      onCellClicked:(params) => {
-        // console.log(params.data);
-        this.removeStockDetails(params.data)
+   columnDefs: ColDef[] = [
+      {
+        headerName: 'S.No',
+        valueGetter: 'node.rowIndex + 1',
+        width: 80 ,
+        pinned: 'left'
       },
-      pinned: 'right',
-      width:80 
-    }
-  ];
+      {
+        field: 'items',
+        headerName: 'Item',
+        minWidth: 70,
+        editable: true,
+        cellEditor: 'agSelectCellEditor',
+        cellEditorParams:()=> ({
+          values:this.productList
+        }),
+        cellDataType:'text'
+      },
+      {
+        field: 'itemSize',
+        headerName: 'Size',
+        minWidth: 70,
+        editable: true,
+        cellEditor: 'agSelectCellEditor',
+        cellEditorParams:()=> ({
+          values:this.sizes
+        }),
+        cellDataType: 'text',
+      },
+      { field: 'kg', headerName: 'KG', minWidth: 50,editable:true,cellDataType:'number' },
+      { field: 'price', headerName: 'Price', minWidth: 50,editable:true,cellDataType:'number' },
+      { field: 'date', headerName: 'Date', minWidth: 50,editable:true,cellEditor:'agDateCellEditor',cellDataType:'date'},
+      { headerName: 'Total', field: 'total', minWidth: 50, cellDataType: 'numericColumn' },
+      {
+        headerName: 'Actions',
+        width: 70,
+        pinned: 'right',
+        cellRenderer: () => `
+            <span class="material-icons delete">delete</span>
+        `,
+        onCellClicked: (params: any) => {
+          console.log(params);
+          this.removeStockDetails(params.data)
+        }
+      }
+    ];
   defaultColDef: ColDef = {
     filter: true,
     sortable: true,
@@ -93,11 +83,21 @@ export class StockManagement implements OnInit {
     private snackBar: Snackbar,
     private dialog:MatDialog
   ) {
-    this.isBrowser = isPlatformBrowser(this.platformId)
+    this.isBrowser = isPlatformBrowser(this.platformId);
+    effect(() => {
+      this.productList = this.commonService.list_of_items();
+      this.sizes = this.commonService.list_of_sizes();
+    })
   }
 
   ngOnInit(): void {
-  
+   if (this.productList.length === 0) {
+      this.getAllProducts()
+    }
+
+    if (this.sizes.length === 0) {
+      this.getProductSize()
+    }
   }
 
   @HostListener('window:resize', ['$event'])
@@ -127,7 +127,15 @@ export class StockManagement implements OnInit {
   getStockList() {
     this.commonService.getStockDetails().subscribe((res) => {
       if (res.length) {
-        this.rowData = res || [];
+         this.rowData = res.map((data: any) => ({
+          id:data.id,
+          items: data.items,
+          itemSize: data.itemSize,
+          kg: data.kg,
+          price: data.price,
+          date: data.date?.toDate ? data.date.toDate() : null,
+          total: data.total
+        }));
         this.gridApi.setGridOption('rowData',this.rowData)
       }
     })
@@ -145,7 +153,10 @@ export class StockManagement implements OnInit {
   removeStockDetails(data:any) {
     const dialogRef = this.dialog.open(Popup, {
       autoFocus: false,
-      disableClose:true
+      disableClose:true,
+       data:{
+          itemName:data.items
+        },
     })
 
     dialogRef.afterClosed().subscribe((res) => {
@@ -155,6 +166,25 @@ export class StockManagement implements OnInit {
         }).catch((err) => {
           this.snackBar.openSnackBar(err)
         })
+      }
+    })
+  }
+
+  getAllProducts() {
+    this.commonService.getAllProducts().subscribe((res: any) => {
+      if (res.length) {
+        const products = res[0].product_name;
+        this.commonService.list_of_items.set(products);
+      }
+    })
+  }
+
+   getProductSize() {
+    this.commonService.getAllProductSize().subscribe((res: any) => {
+      if (res.length) {
+        const productSize = res[0].productSize;
+        this.commonService.list_of_sizes.set(productSize);
+        console.log(this.sizes);
       }
     })
   }

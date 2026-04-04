@@ -4,6 +4,7 @@ import { Snackbar } from '../../../service/snackbar';
 import { Common } from '../../common';
 import { Router } from '@angular/router';
 import { ZincService } from '../zinc-details/zinc-service';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'app-add-zinc',
@@ -75,6 +76,21 @@ export class AddZinc implements OnInit {
         this.commonService.list_of_sizes.set(productSize);
       }
     })
+  }
+
+  onSelectItemSize(event:MatSelectChange){
+console.log(event, "option select");
+
+this.commonService.getMaterialDetails().subscribe((res: any) => {
+      if (res.length) {
+        const material = res;
+        const materialObj = material.find((mat:any)=> mat.items == this.fcItem.value && mat.itemSize == this.fcItemSize.value);
+        console.log(materialObj);
+        this.fcKg.setValue(materialObj.kg);
+        this.fcKg.disable();
+      }
+    })
+
   }
 
   getAllProducts() {

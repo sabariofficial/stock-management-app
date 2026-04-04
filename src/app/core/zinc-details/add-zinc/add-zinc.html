@@ -29,7 +29,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Item Size</mat-label>
-        <mat-select formControlName="itemSize">
+        <mat-select formControlName="itemSize" (selectionChange)="onSelectItemSize($event)">
           @for (size of itemSizes; track $index) {
           <mat-option [value]="size">
             {{ size }}
